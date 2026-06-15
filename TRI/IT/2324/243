@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple File Upload Interface</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #eef2f3;
+            margin: 0;
+        }
+        .upload-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            color: #333333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #777777;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .file-input-container {
+            margin-bottom: 20px;
+        }
+        /* Hiding the default input to create a styled custom button */
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            border: 2px dashed #007bff;
+            color: #007bff;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            width: 90%;
+            transition: all 0.3s ease;
+        }
+        .custom-file-upload:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        .file-info {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .upload-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+        }
+        .upload-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="upload-card">
+    <h2>Upload File</h2>
+    <p>Select your file and upload it</p>
+    
+    <div class="file-input-container">
+        <label for="fileInput" class="custom-file-upload">
+            📁 Choose a File
+        </label>
+        <input type="file" id="fileInput" onchange="showFileInfo()">
+    </div>
+    
+    <div id="fileInfo" class="file-info"></div>
+    
+    <button class="upload-btn" onclick="processUpload()">Upload Now</button>
+</div>
+
+<script>
+    // Displays the selected file's name and size on the screen
+    function showFileInfo() {
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        
+        if (fileInput.files.length > 0) {
+            const fileName = fileInput.files[0].name;
+            const fileSize = (fileInput.files[0].size / 1024).toFixed(2); // Convert bytes to KB
+            fileInfo.innerHTML = `Selected: ${fileName} (${fileSize} KB)`;
+        } else {
+            fileInfo.innerHTML = "";
+        }
+    }
+
+    // Handles the action when the upload button is clicked
+    function processUpload() {
+        const fileInput = document.getElementById('fileInput');
+        
+        if (fileInput.files.length === 0) {
+            alert('Please select a file first!');
+            return;
+        }
+        
+        const fileName = fileInput.files[0].name;
+        alert(`Success! "${fileName}" is ready to be uploaded.`);
+        
+        // When connecting to a backend server, you can write the actual upload logic here.
+    }
+</script>
+
+</body>
+</html>
